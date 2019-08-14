@@ -116,6 +116,7 @@ export default class ManageJob extends React.Component {
             })
         });
     }
+
     handleClick(e, titleProps) {
         const { index } = titleProps
         const { activeIndex } = this.state
@@ -123,6 +124,7 @@ export default class ManageJob extends React.Component {
 
         this.setState({ activeIndex: newIndex })
     }
+
     render() {
         var res = undefined;
         if (this.state.loadJobs.length > 0) {
@@ -212,7 +214,8 @@ export default class ManageJob extends React.Component {
                                 <span>
                                     <i className="calendar icon" />
                                     {"Sort by date: "}
-                                    <Dropdown inline simple options={options}
+                                    <Dropdown inline simple
+                                        options={options}
                                         name="date"
                                         onChange={this.handleSortChange}
                                         className="manage-jobs"

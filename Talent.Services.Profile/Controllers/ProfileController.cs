@@ -138,15 +138,47 @@ namespace Talent.Services.Profile.Controllers
         public async Task<IActionResult> GetLanguages()
         {
             //Your code here;
-            throw new NotImplementedException();
+            var userId = _userAppContext.CurrentUserId;
+            var user = await _userRepository.GetByIdAsync(userId);
+            return Json(new { Username = user.Languages });
         }
 
+       
         [HttpPost("addLanguage")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
-        public ActionResult AddLanguage([FromBody] AddLanguageViewModel language)
+        public  ActionResult AddLanguage([FromBody] AddLanguageViewModel language)
         {
             //Your code here;
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                if ( _profileService.AddNewLanguage(language))
+                {
+                    return Json(new { Success = true });
+                }
+            }
+            return Json(new { Success = false });
+
+
+            //try
+            //{
+            //    var languageResult = await _profileService.AddNewLanguage(language);
+            //    //var languageResult = await _profileService.AddNewLanguage(language);
+
+            //    if (languageResult == false)
+            //    {
+            //        return Json(new { success = false, data = "can not add the language." });
+
+            //    }
+
+            //    return Json(new { Success = true, data = "add successful" });
+
+            //}
+
+            //catch (Exception e)
+            //{
+            //    return Json(new { success = false, data = "error" });
+            //}
+
         }
 
         [HttpPost("updateLanguage")]
@@ -431,20 +463,28 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<IActionResult> UpdateTalentProfile([FromBody]TalentProfileViewModel profile)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (await _profileService.UpdateTalentProfile(profile, _userAppContext.CurrentUserId))
+                if (ModelState.IsValid)
                 {
-                    return Json(new { Success = true });
+                    if (await _profileService.UpdateTalentProfile(profile, _userAppContext.CurrentUserId))
+                    {
+                        return Json(new { Success = true });
+                    }
                 }
+                return Json(new { Success = false })
+            ;
             }
-            return Json(new { Success = false });
+            catch(Exception e)
+            {
+                return Json(new { Success = false });
+            }
         }
 
         [HttpGet("getTalent")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "recruiter, employer")]
         public async Task<IActionResult> GetTalentSnapshots(FeedIncrementModel feed)
-        {
+        {                                                                                                                          
             try
             {
                 var result = (await _profileService.GetTalentSnapshotList(_userAppContext.CurrentUserId, false, feed.Position, feed.Number)).ToList();
@@ -472,6 +512,7 @@ namespace Talent.Services.Profile.Controllers
                 return Json(new { Success = false, e.Message });
             }
         }
+
         #endregion
 
         #region TalentMatching

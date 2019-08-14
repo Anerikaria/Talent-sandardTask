@@ -54,9 +54,10 @@ export default class SocialMediaLinkedAccount extends React.Component{
     }
 
     saveAcc() {
+        console.log(this.props.componentId)
         console.log(this.state.socialMedia)
         const data = Object.assign({}, this.state.socialMedia)
-        this.props.updateProfileData(data)
+        this.props.controlFunc(data)
         this.closeEdit()
     }
 

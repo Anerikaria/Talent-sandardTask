@@ -152,8 +152,10 @@ export default class AccountProfile extends React.Component {
                                         >
                                             <SocialMediaLinkedAccount
                                                 linkedAccounts={this.state.profileData.linkedAccounts}
-                                                updateProfileData={this.updateWithoutSave}
-                                                saveProfileData={this.updateAndSaveData}
+                                                controlFunc={this.updateForComponentId}
+                                                componentId='linkedAccounts'
+                                                //updateProfileData={this.updateWithoutSave}
+                                                //saveProfileData={this.updateAndSaveData}
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -180,42 +182,46 @@ export default class AccountProfile extends React.Component {
                                             />
                                        </FormItemWrapper>
                                          <FormItemWrapper
-//                                            title='Nationality'
-//                                            tooltip='Select your nationality'
-//                                        >
-//                                            <Nationality
-//                                                nationalityData={this.state.profileData.nationality}
-//                                                saveProfileData={this.updateAndSaveData}
-//                                            />
-//                                        </FormItemWrapper>
-//                                        <FormItemWrapper
-//                                            title='Languages'
-//                                            tooltip='Select languages that you speak'
-//                                        >
-//                                            <Language
-//                                                languageData={this.state.profileData.languages}
-//                                                updateProfileData={this.updateAndSaveData}
-//                                            />
-//                                        </FormItemWrapper>
-//                                        <FormItemWrapper
-//                                            title='Skills'
-//                                            tooltip='List your skills'
-//                                        >
-//                                            <Skill
-//                                                skillData={this.state.profileData.skills}
-//                                                updateProfileData={this.updateAndSaveData}
-//                                            />
-//                                        </FormItemWrapper>
-//                                        <FormItemWrapper
-//                                            title='Work experience'
-//                                            tooltip='Add your work experience'
-//                                        >
-//                                            <Experience
-//                                                experienceData={this.state.profileData.experience}
-//                                                updateProfileData={this.updateAndSaveData}
-//                                            />
-//                                        </FormItemWrapper>
-//                                        <FormItemWrapper
+                                            title='Nationality'
+                                            tooltip='Select your nationality'
+                                        >
+                                            <Nationality
+                                                nationalityData={this.state.profileData.nationality}
+                                                saveProfileData={this.updateAndSaveData}
+                                            />
+                                        </FormItemWrapper>
+
+                                        <FormItemWrapper
+                                            title='Languages'
+                                            tooltip='Select languages that you speak'
+                                        >
+                                            <Language
+                                                languageData={this.state.profileData.languages}
+                                                controlFunc={this.updateForComponentId}
+                                                componentId='languages'
+                                            />
+                                        </FormItemWrapper>
+
+                                        <FormItemWrapper
+                                            title='Skills'
+                                            tooltip='List your skills'
+                                        >
+                                            <Skill
+                                                skillData={this.state.profileData.skills}
+                                                updateProfileData={this.updateAndSaveData}
+                                            />
+                                        </FormItemWrapper>
+                                        <FormItemWrapper
+                                            title='Work experience'
+                                            tooltip='Add your work experience'
+                                        >
+                                            <Experience
+                                                experienceData={this.state.profileData.experience}
+                                                updateProfileData={this.updateAndSaveData}
+                                            />
+                                        </FormItemWrapper>
+
+                                       <FormItemWrapper
 //                                            title='Education'
 //                                            tooltip='Add your educational background'
 //                                        >
@@ -233,7 +239,7 @@ export default class AccountProfile extends React.Component {
 //                                                updateProfileData={this.updateAndSaveData}
 //                                            />
 //                                        </FormItemWrapper>
-//<FormItemWrapper
+//                                          <FormItemWrapper
 //                                            title='Visa Status'
 //                                            tooltip='What is your current Visa/Citizenship status?'
 //                                        >
